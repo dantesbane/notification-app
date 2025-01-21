@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
 class MyApp extends StatefulWidget {
   @override
@@ -14,7 +16,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    notifications = fetchNotifications(2);  // Replace with actual userId
+    notifications = fetchNotifications(3);  // Replace with actual userId
   }
 
   // Function to fetch notifications
@@ -124,6 +126,10 @@ class Notification {
   }
 }
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(MyApp());
 }
